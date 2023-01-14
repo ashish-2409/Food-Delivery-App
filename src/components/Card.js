@@ -4,7 +4,7 @@ export default function Card() {
     return (
         <div>
             <div className="card mt-3" style={{ "width": "18rem", "maxHeight": "360px" }}>
-                <img src="..." className="card-img-top" alt="..." />
+                <img src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2021/02/05/Baked-Feta-Pasta-4_s4x3.jpg.rend.hgtvcom.616.493.suffix/1615916524567.jpeg" className="card-img-top" alt="..." />
                 <div className="card-body">
                     <h5 className="card-title">Card title</h5>
                     <p className="card-text">Lorem ipsum dolor sit amet..</p>
