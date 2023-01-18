@@ -5,6 +5,9 @@ node_modules
 /.pnp
 .pnp.js
 
+#passwords
+passwords.js
+
 # testing
 /coverage
 
