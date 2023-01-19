@@ -13,7 +13,7 @@ const mongoDB = async()=>{
                 console.log(err);
             }
             else{
-                console.log(data);
+                // console.log(data);
             }
         })
         }
