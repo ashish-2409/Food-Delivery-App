@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongouri=require('../src/passwords')// getting password for the mongodb atlas connection
+const {mongouri}=require('../src/passwords')// getting password for the mongodb atlas connection
 const mongoDB = async()=>{
     await mongoose.connect(mongouri,{useNewUrlParser:true},async(err,result)=>{
         if(err){

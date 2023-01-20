@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User')
+const User = require('../models/User');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
+const {jwtsecret} = require('/Food Delivery App/food-delivery-app/src/passwords')
 
 router.post('/createuser',
     [body('email').isEmail(),
@@ -13,9 +16,11 @@ router.post('/createuser',
             return res.status(400).json({ errors: errors.array() });
         }
         try {
+            const salt = await bcrypt.genSalt(10);
+            let secpassword = await bcrypt.hash(req.body.password, salt);
             await User.create({
                 name: req.body.name,
-                password: req.body.password,
+                password: secpassword,
                 location: req.body.location,
                 email: req.body.email
             })
@@ -34,7 +39,7 @@ router.post('/createuser',
 
 router.post('/loginuser'
     , [body('email').isEmail()
-    , body('password').isLength({ min: 5 })]
+        , body('password').isLength({ min: 5 })]
     , async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -46,11 +51,19 @@ router.post('/loginuser'
             if (!userdata) {
                 return res.status(400).json({ errors: "Try logging with correct credentials" });
             }
-
-            if (!(req.body.password === userdata.password)) {
+            const comppassword = bcrypt.compare(req.body.password,userdata.password);
+            if (!comppassword) {
                 return res.status(400).json({ errors: "Try logging with correct credentials" });
             }
-            return res.json({ success: true });
+
+            const data={
+                user:{
+                    id:userdata.id
+                }
+            }
+            const authtoken = jwt.sign(data,jwtsecret);
+
+            return res.json({ success: true ,authtoken:authtoken});
         }
         catch (error) {
             console.log(error);
