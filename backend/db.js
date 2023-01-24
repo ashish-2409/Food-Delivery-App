@@ -8,13 +8,21 @@ const mongoDB = async()=>{
         else{
         console.log("Connected successfully");
         const fetched_date = await mongoose.connection.db.collection("food_items");
-        fetched_date.find({}).toArray(function(err,data){
-            if(err){
-                console.log(err);
+        fetched_date.find({}).toArray(async function(err,data){
+            
+            const foodCategory = await mongoose.connection.db.collection("foodCategory");
+            foodCategory.find({}).toArray(function (err,cdata){
+
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    global.food_items = data;
+                    global.foodCategory = cdata;
+                    // console.log(data);
+                }
             }
-            else{
-                // console.log(data);
-            }
+            )
         })
         }
     });
