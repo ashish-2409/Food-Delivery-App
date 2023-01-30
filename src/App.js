@@ -2,6 +2,7 @@ import './App.css';
 import Home from './screens/Home';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
+import Cart from './screens/Cart';
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,6 +23,7 @@ function App() {
             <Route exact path='/' element={<Home />}></Route>
             <Route exact path='/login' element={<Login />}></Route>
             <Route exact path='/signup' element={<Signup />}></Route>
+            <Route exact path='/cart' element={<Cart />}></Route>
           </Routes>
         </div>
       </Router>
